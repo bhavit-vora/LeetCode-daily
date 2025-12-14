@@ -3,7 +3,7 @@
     SC: O(1)
 */
 
-class Solution {
+public class Solution {
     final int MOD = 1_000_000_007;
 
     public int numberOfWays(String s) {
