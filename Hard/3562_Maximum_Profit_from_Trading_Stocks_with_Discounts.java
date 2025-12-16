@@ -60,7 +60,7 @@ class Solution {
                     childrenProfitIfUBought = temp;
                 }
 
-                for (int b = price; b <= budget; b++) {
+                for (int b = price; b <= budget; b ++) {
                     best[b] = Math.max(best[b], childrenProfitIfUBought[b - price] + profit);
                 }
             }
