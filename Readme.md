@@ -6,6 +6,7 @@ This repository contains my daily LeetCode solutions written in **Java**.
 - Easy
 - Medium
 - Hard
+- Utils (for resuability)
 
 ## What this repo shows
 - LeetCode daily solutions
