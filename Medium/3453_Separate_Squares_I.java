@@ -1,46 +1,41 @@
-import java.util.*;
+/*
+    TC: O(n * logn)
+    SC: O(1)
+*/
 
 class Solution {
-    public double separateSquares(int[][] squares) {
-        List<double[]> events = new ArrayList<>(); 
+    public boolean calculate(int[][] squares, double mid) {
+        double area1 = 0.0, area2 = 0.0;
 
-        for (int[] sq : squares) {
-            int yi = sq[1], li = sq[2];
+        for(int[] square: squares) {
+            double y = square[1];
+            double len = square[2];
 
-            events.add(new double[]{yi, li});
-            events.add(new double[]{yi + li, -li});
-        }
-
-        events.sort((a, b) -> Double.compare(a[0], b[0]));
-
-        double total_w = 0.0;
-        for (int[] sq : squares) {
-            int li = sq[2];
-            total_w += (double)li * li;
-        }
-
-        double target = total_w / 2.0;
-
-        double curr_y = events.get(0)[0], curr_w = 0.0, accumulated = 0.0;
-
-        for (int i = 0; i < events.size(); i++) {
-            double[] event = events.get(i);
-            double y = event[0], change = event[1];
-
-            double separate = y - curr_y;
-            accumulated += curr_w * separate;
-            
-            if (accumulated >= target) {
-                double prev = accumulated - curr_w * separate;
-
-                double need = target - prev;
-                return curr_y + need / curr_w;
+            if(mid <= y) {
+                area2 += len * len;
+            } else if(mid >= y + len) {
+                area1 += len * len;
+            } else {
+                area1 += len * (mid - y);
+                area2 += len * (y + len - mid);
             }
-
-            curr_y = y;
-            curr_w += change;
         }
 
-        return 0.0;
+        return area1 >= area2;
+    }
+    public double separateSquares(int[][] squares) {
+        double low = 0.0, high = 1e9;
+
+        while(high - low > 1e-5) {
+            double mid = (low + high) / 2.0;
+
+            if(calculate(squares, mid)) {
+                high = mid;
+            } else {
+                low = mid;
+            }
+        }
+
+        return low;
     }
 }
