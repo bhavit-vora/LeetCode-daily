@@ -1,5 +1,3 @@
-package Utils;
-
 public class TreeNode {
     public int val;
     public TreeNode left;
